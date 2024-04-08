@@ -14,7 +14,7 @@ tags:
   - name: Users
     description: User Management
 paths:
-  /auth/signup:
+  /auth/register:
     post:
       tags:
         - Signup and Login
