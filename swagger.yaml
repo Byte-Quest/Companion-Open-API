@@ -555,10 +555,10 @@ paths:
                   example: Canada, Vancouver, etc.
                 startDate:
                   type: string
-                  example: "2024-03-24 05:09:30.709 +0330 +0330"
+                  example: "2024-04-28T20:21:26.854076419Z"
                 endDate:
                   type: string
-                  example: "2024-03-24 05:09:30.709 +0330 +0330"
+                  example: "2024-04-28T20:21:26.854076419Z"
       security:
         - bearerAuth: [ ]
       responses:
@@ -635,7 +635,7 @@ paths:
                           example: john.doe@gmail.com
                         createdAt:
                           type: string
-                          example: "2024-03-24 05:09:30.709 +0330 +0330"
+                          example: "2024-04-28T20:21:26.854076419Z"
   /posts/{post_id}/attend:
     patch:
       tags:
@@ -755,7 +755,7 @@ components:
             example: John.Doe@gmail.com
           createdAt:
             type: string
-            example: "2024-03-24 05:09:30.709 +0330 +0330"
+            example: "2024-04-28T20:21:26.854076419Z"
     Event:
       type: array
       items:
@@ -775,7 +775,7 @@ components:
             example: Post,Event
           createdAt:
             type: string
-            example: "2024-03-24 05:09:30.709 +0330 +0330"
+            example: "2024-04-28T20:21:26.854076419Z"
           payload:
             type: object
             properties:
@@ -798,10 +798,10 @@ components:
                 example: Canada, Vancouver, etc.
               startDate:
                 type: string
-                example: "2024-03-24 05:09:30.709 +0330 +0330"
+                example: "2024-04-28T20:21:26.854076419Z"
               endDate:
                 type: string
-                example: "2024-03-24 05:09:30.709 +0330 +0330"
+                example: "2024-04-28T20:21:26.854076419Z"
               attendees:
                 type: array
                 example:
@@ -850,7 +850,7 @@ components:
             example: Post,Event
           createdAt:
             type: string
-            example: "2024-03-24 05:09:30.709 +0330 +0330"
+            example: "2024-04-28T20:21:26.854076419Z"
           payload:
             type: object
             properties:
