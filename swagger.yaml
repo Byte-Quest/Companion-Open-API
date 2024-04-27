@@ -691,7 +691,7 @@ paths:
                   message:
                     type: string
                     example: The requested resource not found.
-  /posts/attachment/upload:
+  /posts/attachments/upload:
     post:
       tags:
         - Posts
