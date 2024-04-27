@@ -293,6 +293,23 @@ paths:
         - Posts
       operationId: Create Post
       description: Create a new post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: Some example content for your post
+                visibility:
+                  type: string
+                  example: Public,Private
+                attachments:
+                  type: array
+                  items:
+                    type: string
+                    example: Get the filename from upload attachments endpoint
       security:
         - bearerAuth: [ ]
       responses:
@@ -323,6 +340,35 @@ paths:
         - Posts
       operationId: Create Event
       description: Create a new post with the type of event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: Some post or event content
+                attachments:
+                  type: array
+                type:
+                  type: string
+                  example: InPerson,Online
+                eventName:
+                  type: string
+                  example: Some event name
+                externalLink:
+                  type: string
+                  example: https://google.com
+                location:
+                  type: string
+                  example: Canada, Vancouver, etc.
+                startDate:
+                  type: string
+                  example: "2024-03-24 05:09:30.709 +0330 +0330"
+                endDate:
+                  type: string
+                  example: "2024-03-24 05:09:30.709 +0330 +0330"
       security:
         - bearerAuth: [ ]
       responses:
@@ -380,6 +426,23 @@ paths:
         - Posts
       operationId: Update Post
       description: Update an existing post of the user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: Some example content for your post
+                visibility:
+                  type: string
+                  example: Public,Private
+                attachments:
+                  type: array
+                  items:
+                    type: string
+                    example: Get the filename from upload attachments endpoint
       security:
         - bearerAuth: [ ]
       responses:
@@ -467,6 +530,35 @@ paths:
         - Posts
       operationId: Update Post With Event Type
       description: Update an existing event of the user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: Some post or event content
+                attachments:
+                  type: array
+                type:
+                  type: string
+                  example: InPerson,Online
+                eventName:
+                  type: string
+                  example: Some event name
+                externalLink:
+                  type: string
+                  example: https://google.com
+                location:
+                  type: string
+                  example: Canada, Vancouver, etc.
+                startDate:
+                  type: string
+                  example: "2024-03-24 05:09:30.709 +0330 +0330"
+                endDate:
+                  type: string
+                  example: "2024-03-24 05:09:30.709 +0330 +0330"
       security:
         - bearerAuth: [ ]
       responses:
@@ -599,6 +691,15 @@ paths:
         - Posts
       description: Upload Post Attachment
       operationId: Upload attachment to use in a post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                attachment:
+                  type: string
+                  format: binary
       responses:
         "200":
           description: Successful Operation
