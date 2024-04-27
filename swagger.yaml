@@ -354,6 +354,9 @@ paths:
                 type:
                   type: string
                   example: InPerson,Online
+                visibility:
+                  type: string
+                  example: Public,Private
                 eventName:
                   type: string
                   example: Some event name
@@ -539,6 +542,9 @@ paths:
                 content:
                   type: string
                   example: Some post or event content
+                visibility:
+                  type: string
+                  example: Public,Private
                 attachments:
                   type: array
                 type:
