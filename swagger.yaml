@@ -218,7 +218,7 @@ paths:
                   errors:
                     type: array
 
-  /users/profile:
+  /profile:
     get:
       tags:
         - Users
