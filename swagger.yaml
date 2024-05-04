@@ -735,6 +735,113 @@ paths:
                     example: Validation error occurred.
                   errors:
                     type: object
+
+  /comments:
+    post:
+      tags:
+        - Comments
+      description: Create Comment
+      operationId: CreateComment
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: resource has been created successfully
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  example: some comment body
+                postID:
+                  type: string
+                  example: some-generated-uuid
+                parentID:
+                  type: string
+                  example: some-generated-uuid(nullable)
+    get:
+      tags:
+        - Comments
+      description: Fetch Comments
+      operationId: FetchComments
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Comments"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+      parameters:
+        - name: post_id
+          in: query
+          description: The post you wanna fetch comments from
+          required: true
+          schema:
+            type: string
+            example: some-generated-uuid
+        - name: parent_id
+          in: query
+          description: The parent which you wanna see its children in the post
+          required: false
+          schema:
+            type: string
+            example: some-generated-uuid
+  /comments/{comment_id}:
+    put:
+      tags:
+        - Comments
+      description: Update Comment
+      operationId: UpdateComment
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: resource has been updated successfully
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  example: some comment body
+    delete:
+      tags:
+        - Comments
+      description: Delete Comment
+      operationId: DeleteComment
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: resource has been deleted successfully
 components:
   schemas:
     Login:
@@ -746,22 +853,20 @@ components:
             type: string
             example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImhzYW1pZC5hYWgwQGdtYWlsLmNvbSIsIklEIjoiMGFmMTI5ODMtODMzZS00ZDQ0LWJkMzAtNDczOWUyZjBjYmYyIiwiZXhwIjoxNzA5NDY3NjM2LCJpYXQiOjE3MDk0NjA0MzYsImlzcyI6Im1vaGFtbWFkIn0.eU6UyDmdVlIWnuOVQyLi8iVci6WQFa1Tjxl7FMEcQ2U
     Profile:
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            type: string
-            example: some-generated-uuid
-          name:
-            type: string
-            example: John Doe
-          email:
-            type: string
-            example: John.Doe@gmail.com
-          createdAt:
-            type: string
-            example: "2024-04-28T20:21:26.854076419Z"
+      type: object
+      properties:
+        id:
+          type: string
+          example: some-generated-uuid
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: John.Doe@gmail.com
+        createdAt:
+          type: string
+          example: "2024-04-28T20:21:26.854076419Z"
     Event:
       type: array
       items:
@@ -813,6 +918,45 @@ components:
                 example:
                   - some-generated-uuid
                   - another-generated-uuid
+    Comments:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            example: some-generated-uuid
+          body:
+            type: string
+            example: some comment body
+          user:
+            $ref: '#/components/schemas/Profile'
+          postID:
+            type: string
+            example: some-generated-uuid
+          childrenCount:
+            type: integer
+            example: 1
+          lastChild:
+            type: object
+            properties:
+              id:
+                type: string
+                example: some-generated-uuid
+              body:
+                type: string
+                example: some comment body
+              user:
+                $ref: '#/components/schemas/Profile'
+              postID:
+                type: string
+                example: some-generated-uuid
+              createdAt:
+                type: string
+                example: "2024-04-28T20:21:26.854076419Z"
+          createdAt:
+            type: string
+            example: "2024-04-28T20:21:26.854076419Z"
     Meta:
       items:
         type: array
