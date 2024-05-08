@@ -236,7 +236,7 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/Profile"
-    post:
+    put:
       tags:
         - Users
       operationId: Update User Profile
@@ -258,6 +258,18 @@ paths:
                 name:
                   type: string
                   example: "John Doe"
+                phoneNumber:
+                  type: string
+                  example: +1234567890
+                about:
+                  type: string
+                  example: "something about the user"
+                avatar:
+                  type: string
+                  example: "avatar/uploaded-file-name.jpg"
+                background:
+                  type: string
+                  example: "background/uploaded-file-name.jpg"
       responses:
         "200":
           description: Successful Operation
@@ -268,6 +280,55 @@ paths:
                 properties:
                   message:
                     type: string
+  /profile/upload:
+    post:
+      tags:
+        - Users
+      operationId: Upload user avatar or background image
+      description: Upload user avatar or background image
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                imageType:
+                  type: string
+                  example: avatar,background
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      fileName:
+                        type: string
+                        example: File name to be used in create post as attachment
+                      url:
+                        type: string
+                        example: https://path-to-image.com
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
   /posts:
     get:
       tags:
@@ -864,6 +925,18 @@ components:
         email:
           type: string
           example: John.Doe@gmail.com
+        about:
+          type: string
+          example: "something about the user"
+        phoneNumber:
+          type: string
+          example: +1234567890
+        avatar:
+          type: string
+          example: "url to the avatar"
+        background:
+          type: string
+          example: "url to the background image"
         createdAt:
           type: string
           example: "2024-04-28T20:21:26.854076419Z"
