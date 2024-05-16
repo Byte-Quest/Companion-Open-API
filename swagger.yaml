@@ -337,6 +337,21 @@ paths:
       description: Latest visible posts for user with pagination and filter for user
       security:
         - bearerAuth: [ ]
+      parameters:
+        - name: page
+          in: query
+          description: The page of the content
+          required: false
+          schema:
+            type: string
+            example: some-generated-uuid
+        - name: perPage
+          in: query
+          description: The amount of the posts in one request
+          required: false
+          schema:
+            type: string
+            example: some-generated-uuid
       responses:
         "200":
           description: Successful Operation
