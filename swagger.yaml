@@ -386,6 +386,9 @@ paths:
                   items:
                     type: string
                     example: Get the filename from upload attachments endpoint
+                type:
+                  type: string
+                  example: Social,Marketplace,Coop
       security:
         - bearerAuth: [ ]
       responses:
@@ -918,6 +921,113 @@ paths:
                   message:
                     type: string
                     example: resource has been deleted successfully
+  /reactions:
+    post:
+      tags:
+        - Reactions
+      description: React to a reactive
+      operationId: ReactToReactive
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: resource has been created successfully
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+        "409":
+          description: User has already reacted to it
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You already reacted to this resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reactiveType:
+                  type: string
+                  example: Comment,Post
+  /reactions/{reactive_id}:
+    post:
+      tags:
+        - Reactions
+      description: Remove reaction from a resource
+      operationId: RemoveReactionFromResource
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: resource has been deleted successfully
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+        "404":
+          description: Post Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Requested resource not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reactions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: some-uuid
+                      reactiveType:
+                        type: string
+                        example: Post,Comment
+                      reactionType:
+                        type: string
+                        example: Like
 components:
   schemas:
     Login:
@@ -975,6 +1085,15 @@ components:
           createdAt:
             type: string
             example: "2024-04-28T20:21:26.854076419Z"
+          commentsCount:
+            type: integer
+            example: 0
+          reactionsCount:
+            type: integer
+            example: 0
+          reaction:
+            type: boolean
+            example: false
           payload:
             type: object
             properties:
@@ -1097,6 +1216,18 @@ components:
                 example: Some post or event content
               attachments:
                 type: array
+              type:
+                type: string
+                example: Post,Coop,Marketplace
+          commentsCount:
+            type: integer
+            example: 0
+          reactionsCount:
+            type: integer
+            example: 0
+          reaction:
+            type: boolean
+            example: false
   securitySchemes:
     bearerAuth:
       type: http
