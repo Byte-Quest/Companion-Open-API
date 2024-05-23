@@ -27,6 +27,7 @@ paths:
                 - name
                 - email
                 - password
+                - studentId
               type: object
               properties:
                 name:
@@ -35,6 +36,9 @@ paths:
                 email:
                   type: string
                   example: John.Doe@gmail.com
+                studentId:
+                  type: string
+                  example: some-student-id
                 password:
                   type: string
                   example: $1234abcd
@@ -225,7 +229,7 @@ paths:
       operationId: User Profile
       description: User's All Information
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       responses:
         "200":
           description: Successful Operation
@@ -242,7 +246,7 @@ paths:
       operationId: Update User Profile
       description: Update User's Email and Name
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       requestBody:
         content:
           application/json:
@@ -287,7 +291,7 @@ paths:
       operationId: Upload user avatar or background image
       description: Upload user avatar or background image
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       requestBody:
         content:
           multipart/form-data:
@@ -352,13 +356,6 @@ paths:
           schema:
             type: string
             example: some-generated-uuid
-        - name: post_type
-          in: query
-          description: Get the post with the given type
-          required: true
-          schema:
-            type: string
-            example: Post,Event,Marketplace,Coop
       responses:
         "200":
           description: Successful Operation
@@ -722,10 +719,13 @@ paths:
                         name:
                           type: string
                           example: John Doe
-                        email:
+                        title:
                           type: string
-                          example: john.doe@gmail.com
-                        createdAt:
+                          example: Backend Developer
+                        avatar:
+                          type: string
+                          example: https://url-to-avatar.com
+                        attendDate:
                           type: string
                           example: "2024-04-28T20:21:26.854076419Z"
   /posts/{post_id}/attend:
@@ -867,8 +867,12 @@ paths:
               schema:
                 type: object
                 properties:
+                  parent:
+                    $ref: "#/components/schemas/Comment"
                   data:
-                    $ref: "#/components/schemas/Comments"
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Comment"
                   meta:
                     $ref: "#/components/schemas/Meta"
       parameters:
@@ -935,7 +939,7 @@ paths:
       description: React to a reactive
       operationId: ReactToReactive
       responses:
-        "202":
+        "200":
           description: Operation Successful
           content:
             application/json:
@@ -976,13 +980,14 @@ paths:
                 reactiveType:
                   type: string
                   example: Comment,Post
-    delete:
+  /reactions/{reactive_id}:
+    post:
       tags:
         - Reactions
       description: Remove reaction from a resource
       operationId: RemoveReactionFromResource
       responses:
-        "203":
+        "200":
           description: Operation Successful
           content:
             application/json:
@@ -1025,12 +1030,15 @@ paths:
                   items:
                     type: object
                     properties:
-                      reactiveId:
+                      id:
                         type: string
                         example: some-uuid
                       reactiveType:
                         type: string
                         example: Post,Comment
+                      reactionType:
+                        type: string
+                        example: Like
 components:
   schemas:
     Login:
@@ -1065,6 +1073,9 @@ components:
         background:
           type: string
           example: "url to the background image"
+        studentId:
+          type: string
+          example: some-student-id
         createdAt:
           type: string
           example: "2024-04-28T20:21:26.854076419Z"
@@ -1125,48 +1136,52 @@ components:
                 example: "2024-04-28T20:21:26.854076419Z"
               attendees:
                 type: array
-                example:
-                  - some-generated-uuid
-                  - another-generated-uuid
-    Comments:
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            type: string
-            example: some-generated-uuid
-          body:
-            type: string
-            example: some comment body
-          user:
-            $ref: '#/components/schemas/Profile'
-          postID:
-            type: string
-            example: some-generated-uuid
-          childrenCount:
-            type: integer
-            example: 1
-          lastChild:
-            type: object
-            properties:
-              id:
-                type: string
-                example: some-generated-uuid
-              body:
-                type: string
-                example: some comment body
-              user:
-                $ref: '#/components/schemas/Profile'
-              postID:
-                type: string
-                example: some-generated-uuid
-              createdAt:
-                type: string
-                example: "2024-04-28T20:21:26.854076419Z"
-          createdAt:
-            type: string
-            example: "2024-04-28T20:21:26.854076419Z"
+                items:
+                  type: object
+                  properties:
+                    userId:
+                      type: string
+                      example: some-uuid
+                    createdAt:
+                      type: string
+                      example: "2024-04-28T20:21:26.854076419Z"
+    Comment:
+      type: object
+      properties:
+        id:
+          type: string
+          example: some-generated-uuid
+        body:
+          type: string
+          example: some comment body
+        user:
+          $ref: '#/components/schemas/Profile'
+        postID:
+          type: string
+          example: some-generated-uuid
+        childrenCount:
+          type: integer
+          example: 1
+        lastChild:
+          type: object
+          properties:
+            id:
+              type: string
+              example: some-generated-uuid
+            body:
+              type: string
+              example: some comment body
+            user:
+              $ref: '#/components/schemas/Profile'
+            postID:
+              type: string
+              example: some-generated-uuid
+            createdAt:
+              type: string
+              example: "2024-04-28T20:21:26.854076419Z"
+        createdAt:
+          type: string
+          example: "2024-04-28T20:21:26.854076419Z"
     Meta:
       items:
         type: array
