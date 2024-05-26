@@ -388,8 +388,14 @@ paths:
                 attachments:
                   type: array
                   items:
-                    type: string
-                    example: Get the filename from upload attachments endpoint
+                    type: object
+                    properties:
+                      fileName:
+                        type: string
+                        example: The file name you get from the upload api
+                      fileType:
+                        type: string
+                        example: The file type you get from the upload api
                 type:
                   type: string
                   example: Social,Marketplace,Coop
@@ -434,6 +440,15 @@ paths:
                   example: Some post or event content
                 attachments:
                   type: array
+                  items:
+                    type: object
+                    properties:
+                      fileType:
+                        type: string
+                        example: The file type you get from the upload api
+                      fileName:
+                        type: string
+                        example: The file name you get from the upload api
                 type:
                   type: string
                   example: InPerson,Online
@@ -527,8 +542,14 @@ paths:
                 attachments:
                   type: array
                   items:
-                    type: string
-                    example: Get the filename from upload attachments endpoint
+                    type: object
+                    properties:
+                      fileName:
+                        type: string
+                        example: The file name from the upload api
+                      fileType:
+                        type: string
+                        example: The file type from the upload api
       security:
         - bearerAuth: [ ]
       responses:
@@ -630,6 +651,15 @@ paths:
                   example: Public,Private
                 attachments:
                   type: array
+                  items:
+                    type: object
+                    properties:
+                      fileName:
+                        type: string
+                        example: The file name from the upload api
+                      fileType:
+                        type: string
+                        example: The file type from the upload api
                 type:
                   type: string
                   example: InPerson,Online
@@ -1116,6 +1146,15 @@ components:
                 example: Some post or event content
               attachments:
                 type: array
+                items:
+                  type: object
+                  properties:
+                    fileName:
+                      type: string
+                      example: The file name from the upload api
+                    fileType:
+                      type: string
+                      example: The file type from the upload api
               type:
                 type: string
                 example: InPerson,Online
@@ -1234,6 +1273,15 @@ components:
                 example: Some post or event content
               attachments:
                 type: array
+                items:
+                  type: object
+                  properties:
+                    fileName:
+                      type: string
+                      example: The file name from the upload api
+                    fileType:
+                      type: string
+                      example: The file type from the upload api
               type:
                 type: string
                 example: Post,Coop,Marketplace
