@@ -839,6 +839,9 @@ paths:
                       url:
                         type: string
                         example: https://path-to-image.com
+                      fileType:
+                        type: string
+                        example: image,video
         "422":
           description: Validation Error
           content:
