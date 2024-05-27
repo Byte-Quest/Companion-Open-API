@@ -268,6 +268,9 @@ paths:
                 about:
                   type: string
                   example: "something about the user"
+                title:
+                  type: string
+                  example: A title that user wants
                 avatar:
                   type: string
                   example: "avatar/uploaded-file-name.jpg"
@@ -1091,6 +1094,9 @@ components:
         name:
           type: string
           example: John Doe
+        title:
+          type: string
+          example: Software Engineer
         email:
           type: string
           example: John.Doe@gmail.com
