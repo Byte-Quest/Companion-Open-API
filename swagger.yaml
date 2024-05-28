@@ -361,6 +361,20 @@ paths:
           schema:
             type: string
             example: some-generated-uuid
+        - name: userId
+          in: query
+          description: The user id that you want to fetch his/her posts
+          required: false
+          schema:
+            type: string
+            example: some-uuid
+        - name: postType
+          in: query
+          description: The post type you want to get from the API
+          required: true
+          schema:
+            type: string
+            example: Event,Marketplace,Social,Coop
       responses:
         "200":
           description: Successful Operation
