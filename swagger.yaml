@@ -1112,6 +1112,9 @@ components:
         title:
           type: string
           example: Software Engineer
+        role:
+          type: string
+          example: Student,Admin
         email:
           type: string
           example: John.Doe@gmail.com
@@ -1221,7 +1224,20 @@ components:
           type: string
           example: some comment body
         user:
-          $ref: '#/components/schemas/Profile'
+          type: object
+          properties:
+            id:
+              type: string
+              example: some-generated-uuid
+            name:
+              type: string
+              example: John Doe
+            title:
+              type: string
+              example: Software Engineer
+            avatar:
+              type: string
+              example: https://url-to-image.com/image.png
         postID:
           type: string
           example: some-generated-uuid
@@ -1238,7 +1254,20 @@ components:
               type: string
               example: some comment body
             user:
-              $ref: '#/components/schemas/Profile'
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: some-generated-uuid
+                name:
+                  type: string
+                  example: John Doe
+                title:
+                  type: string
+                  example: Software Engineer
+                avatar:
+                  type: string
+                  example: https://url-to-image.com/image.png
             postID:
               type: string
               example: some-generated-uuid
