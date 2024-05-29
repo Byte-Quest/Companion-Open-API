@@ -1032,8 +1032,7 @@ paths:
                 reactiveType:
                   type: string
                   example: Comment,Post
-  /reactions/{reactive_id}:
-    post:
+    delete:
       tags:
         - Reactions
       description: Remove reaction from a resource
@@ -1082,15 +1081,12 @@ paths:
                   items:
                     type: object
                     properties:
-                      id:
+                      reactiveId:
                         type: string
                         example: some-uuid
                       reactiveType:
                         type: string
                         example: Post,Comment
-                      reactionType:
-                        type: string
-                        example: Like
 components:
   schemas:
     Login:
