@@ -52,6 +52,8 @@ paths:
                 properties:
                   message:
                     type: string
+                  data:
+                    $ref: "#/components/schemas/Login"
 
   /auth/login:
     post:
@@ -359,6 +361,20 @@ paths:
           schema:
             type: string
             example: some-generated-uuid
+        - name: userId
+          in: query
+          description: The user id that you want to fetch his/her posts
+          required: false
+          schema:
+            type: string
+            example: some-uuid
+        - name: postType
+          in: query
+          description: The post type you want to get from the API
+          required: true
+          schema:
+            type: string
+            example: Event,Marketplace,Social,Coop
       responses:
         "200":
           description: Successful Operation
@@ -1085,6 +1101,9 @@ components:
           accessToken:
             type: string
             example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImhzYW1pZC5hYWgwQGdtYWlsLmNvbSIsIklEIjoiMGFmMTI5ODMtODMzZS00ZDQ0LWJkMzAtNDczOWUyZjBjYmYyIiwiZXhwIjoxNzA5NDY3NjM2LCJpYXQiOjE3MDk0NjA0MzYsImlzcyI6Im1vaGFtbWFkIn0.eU6UyDmdVlIWnuOVQyLi8iVci6WQFa1Tjxl7FMEcQ2U
+          role:
+            type: string
+            example: Admin,Student
     Profile:
       type: object
       properties:
@@ -1135,6 +1154,9 @@ components:
           type:
             type: string
             example: Post,Event
+          attended:
+            type: boolean
+            example: true
           createdAt:
             type: string
             example: "2024-04-28T20:21:26.854076419Z"
@@ -1271,6 +1293,9 @@ components:
           type:
             type: string
             example: Post,Event
+          attended:
+            type: boolean
+            example: false
           createdAt:
             type: string
             example: "2024-04-28T20:21:26.854076419Z"
