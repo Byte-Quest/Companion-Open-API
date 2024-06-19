@@ -985,6 +985,56 @@ paths:
                     type: string
                     example: resource has been deleted successfully
   /reactions:
+    get:
+      tags:
+        - Reactions
+      operationId: Reacted users list to a reactive
+      description: Latest user reacted to a reactive(post or comment)
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: page
+          in: query
+          description: The page of the content
+          required: false
+          schema:
+            type: string
+            example: some-generated-uuid
+        - name: perPage
+          in: query
+          description: The amount of the posts in one request
+          required: false
+          schema:
+            type: string
+            example: some-generated-uuid
+        - name: reactiveId
+          in: query
+          description: The ID of the comment or the post you want to see its reactions
+          required: true
+          schema:
+            type: string
+            example: some-uuid
+        - name: reactiveType
+          in: query
+          description: The type of the reactive(Only use the ones in the example section)
+          required: true
+          schema:
+            type: string
+            example: Post,Comment
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Reaction"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
     post:
       tags:
         - Reactions
@@ -1087,6 +1137,56 @@ paths:
                       reactiveType:
                         type: string
                         example: Post,Comment
+
+  /admins/student-ids:
+    post:
+      tags:
+        - Admin
+      description: Bulk create student IDs
+      operationId: BulkCreateStudentIDs
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: resource has been created successfully
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                StudentIDs:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      advisorName:
+                        type: string
+                        example: John Doe's advisor
+                      advisorEmail:
+                        type: string
+                        example: advisor.of.john.doe@gmail.com
+                      studentId:
+                        type: string
+                        example: some-id
 components:
   schemas:
     Login:
@@ -1124,6 +1224,12 @@ components:
         phoneNumber:
           type: string
           example: +1234567890
+        advisorName:
+          type: string
+          example: John Doe's advisor
+        advisorEmail:
+          type: string
+          example: advisor.of.john.doe@gmail.com
         avatar:
           type: string
           example: "url to the avatar"
@@ -1353,6 +1459,38 @@ components:
           reaction:
             type: boolean
             example: false
+    Reaction:
+      type: object
+      properties:
+        reactiveType:
+          type: string
+          example: Comment,Post
+        reactiveId:
+          type: string
+          example: some-generated-uuid
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                example: some-generated-uuid
+              name:
+                type: string
+                example: John Doe
+              title:
+                type: string
+                example: Software Engineer
+              avatar:
+                type: string
+                example: https://url-to-avatar.com
+              reactionType:
+                type: string
+                example: Like
+              reactedAt:
+                type: string
+                example: "2024-04-28T20:21:26.854076419Z"
   securitySchemes:
     bearerAuth:
       type: http
