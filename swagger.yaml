@@ -1173,7 +1173,7 @@ paths:
   /assets:
     get:
       tags:
-        - Admin
+        - Assets
       operationId: Fetch assets
       description: Latest assets of the application
       security:
@@ -1214,6 +1214,8 @@ paths:
         - Admin
       description: Bulk create student IDs
       operationId: BulkCreateStudentIDs
+      security:
+        - bearerAuth: [ ]
       responses:
         "200":
           description: Operation Successful
@@ -1264,6 +1266,8 @@ paths:
         - Admin
       description: Create an asset
       operationId: CreateAsset
+      security:
+        - bearerAuth: [ ]
       responses:
         "200":
           description: Operation Successful
@@ -1308,6 +1312,8 @@ paths:
     put:
       tags:
         - Admin
+      security:
+        - bearerAuth: [ ]
       description: Update asset
       operationId: UpdateAsset
       responses:
