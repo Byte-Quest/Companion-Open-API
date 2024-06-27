@@ -14,6 +14,38 @@ tags:
   - name: Users
     description: User Management
 paths:
+  /notifications:
+    get:
+      tags:
+        - Notifications
+      operationId: FetchNotifications
+      responses:
+        "200":
+          description: Registered Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Notification"
+  /notifications/{notification_id}:
+    get:
+      tags:
+        - Notifications
+      operationId: MarkNotificationAsRead
+      responses:
+        "200":
+          description: Read successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
   /auth/register:
     post:
       tags:
@@ -1358,6 +1390,38 @@ paths:
                     example: Access to the resource is forbidden for this user
 components:
   schemas:
+    Notification:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            example: some-generated-uuid
+          user:
+            type: object
+            properties:
+              id:
+                type: string
+                example: some-generated-uuid
+              name:
+                type: string
+                example: John Doe
+              avatar:
+                type: string
+                example: https://path-to-avatar.com
+          content:
+            type: string
+            example: Somebody posted a new event
+          type:
+            type: string
+            example: General
+          isRead:
+            type: boolean
+            example: true
+          createdAt:
+            type: string
+            example: "2024-04-28T20:21:26.854076419Z"
     Login:
       type: array
       items:
