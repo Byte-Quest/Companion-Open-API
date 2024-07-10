@@ -376,8 +376,6 @@ paths:
         - Posts
       operationId: Feed
       description: Latest visible posts for user with pagination and filter for user
-      security:
-        - bearerAuth: [ ]
       parameters:
         - name: page
           in: query
@@ -551,8 +549,6 @@ paths:
         - Posts
       operationId: Fetch Post
       description: Fetch a post with the given ID
-      security:
-        - bearerAuth: [ ]
       responses:
         "200":
           description: Successful Operation
@@ -779,8 +775,6 @@ paths:
         - Posts
       operationId: Get Attendees
       description: Get Attendees of a post
-      security:
-        - bearerAuth: [ ]
       responses:
         "200":
           description: Successful Operation
@@ -1022,8 +1016,6 @@ paths:
         - Reactions
       operationId: Reacted users list to a reactive
       description: Latest user reacted to a reactive(post or comment)
-      security:
-        - bearerAuth: [ ]
       parameters:
         - name: page
           in: query
@@ -1208,6 +1200,144 @@ paths:
                   meta:
                     $ref: "#/components/schemas/Meta"
 
+  /services:
+    get:
+      tags:
+        - Services
+      operationId: Fetch services
+      description: Latest services of the application
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: page
+          in: query
+          description: The page of the content
+          required: false
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          description: The amount of the assets in one request
+          required: false
+          schema:
+            type: integer
+            example: 20
+        - name: categoryId
+          in: query
+          description: The category of the services
+          required: false
+          schema:
+            type: string
+            example: some-generated-uuid
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Service"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+
+  /services/{service_id}:
+    get:
+      tags:
+        - Services
+      operationId: Fetch Service
+      description: Fetch a service with the given ID
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Service"
+        "404":
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Requested resource not found
+
+
+  /categories:
+    get:
+      tags:
+        - Categories
+      operationId: Fetch categories
+      description: Latest categories of the application
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: page
+          in: query
+          description: The page of the content
+          required: false
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          description: The amount of the assets in one request
+          required: false
+          schema:
+            type: integer
+            example: 20
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Category"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+
+  /categories/{category_id}:
+    get:
+      tags:
+        - Categories
+      operationId: Fetch category
+      description: Fetch a category with the given ID
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Category"
+        "404":
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Requested resource not found
+
   /admin/student-ids:
     post:
       tags:
@@ -1386,6 +1516,361 @@ paths:
                     example: The requested resource not found.
         "403":
           description: User does not have access to modify the asset
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Access to the resource is forbidden for this user
+  /admin/services:
+    post:
+      tags:
+        - Admin
+      description: Create a service
+      operationId: CreateService
+      security:
+        - bearerAuth: [ ]
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Service"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Lorem ipsum
+                title:
+                  type: string
+                  example: Best billing service
+                description:
+                  type: string
+                  example: Some description about the best billing service in the application
+                cover:
+                  type: string
+                  example: https://url-to-cover.com/something.png
+                email:
+                  type: string
+                  example: service@gmail.com
+                phoneNumber:
+                  type: string
+                  example: +123456789
+                categoryId:
+                  type: string
+                  example: some-generated-uuid
+  /admin/services/{service_id}:
+    put:
+      tags:
+        - Admin
+      security:
+        - bearerAuth: [ ]
+      description: Update service
+      operationId: UpdateService
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Service"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+        "404":
+          description: Service Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The requested resource not found.
+        "403":
+          description: User does not have access to modify the service
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Access to the resource is forbidden for this user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Lorem ipsum
+                title:
+                  type: string
+                  example: Best billing service
+                description:
+                  type: string
+                  example: Some description about the best billing service in the application
+                cover:
+                  type: string
+                  example: https://url-to-cover.com/something.png
+                email:
+                  type: string
+                  example: service@gmail.com
+                phoneNumber:
+                  type: string
+                  example: +123456789
+                categoryId:
+                  type: string
+                  example: some-generated-uuid
+    delete:
+      tags:
+        - Admin
+      operationId: Delete Service
+      description: Delete an existing service from storage
+      security:
+        - bearerAuth: [ ]
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Resource has been created successfully.
+        "404":
+          description: Service Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The requested resource not found.
+        "403":
+          description: User does not have access to modify the service
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Access to the resource is forbidden for this user
+  /admin/services/upload:
+    post:
+      tags:
+        - Admin
+      operationId: Upload service cover
+      description: Upload service cover
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      fileName:
+                        type: string
+                        example: File name to be used in create post as attachment
+                      url:
+                        type: string
+                        example: https://path-to-image.com
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+
+  /admin/categories:
+    post:
+      tags:
+        - Admin
+      description: Create a category
+      operationId: CreateCategory
+      security:
+        - bearerAuth: [ ]
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Category"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Billing
+  /admin/categories/{category_id}:
+    put:
+      tags:
+        - Admin
+      security:
+        - bearerAuth: [ ]
+      description: Update category
+      operationId: UpdateCategory
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Category"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+        "404":
+          description: Category Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The requested resource not found.
+        "403":
+          description: User does not have access to modify the category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Access to the resource is forbidden for this user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Billing
+    delete:
+      tags:
+        - Admin
+      operationId: Delete Category
+      description: Delete an existing category from storage
+      security:
+        - bearerAuth: [ ]
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Resource has been created successfully.
+        "404":
+          description: Category Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The requested resource not found.
+        "403":
+          description: User does not have access to modify the category
           content:
             application/json:
               schema:
@@ -1640,6 +2125,63 @@ components:
         type:
           type: string
           example: File,Video,Link,Audio
+        createdAt:
+          type: string
+          example: "2024-04-28T20:21:26.854076419Z"
+    Service:
+      type: object
+      properties:
+        id:
+          type: string
+          example: some-uuid
+        name:
+          type: string
+          example: Lorem ipsum
+        title:
+          type: string
+          example: Best billing service
+        description:
+          type: string
+          example: some description about the best billing service in the application
+        cover:
+          type: string
+          example: https://url-to-covers.com/something.png
+        email:
+          type: string
+          example: service@gmail.com
+        phoneNumber:
+          type: string
+          example: +1234556677
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+              example: some-generated-uuid
+            name:
+              type: string
+              example: John Doe
+        category:
+          type: object
+          properties:
+            id:
+              type: string
+              example: some-generated-uuid
+            name:
+              type: string
+              example: Billing
+        createdAt:
+          type: string
+          example: "2024-04-28T20:21:26.854076419Z"
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          example: some-generated-uuid
+        name:
+          type: string
+          example: Billing
         createdAt:
           type: string
           example: "2024-04-28T20:21:26.854076419Z"
