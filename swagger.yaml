@@ -1569,6 +1569,12 @@ paths:
                 description:
                   type: string
                   example: Some description about the best billing service in the application
+                about:
+                  type: string
+                  example: something about this service
+                url:
+                  type: string
+                  example: https://meet.google.com/something
                 cover:
                   type: string
                   example: https://url-to-cover.com/something.png
@@ -1646,6 +1652,12 @@ paths:
                 description:
                   type: string
                   example: Some description about the best billing service in the application
+                about:
+                  type: string
+                  example: something about this service
+                url:
+                  type: string
+                  example: https://meet.google.com/something
                 cover:
                   type: string
                   example: https://url-to-cover.com/something.png
@@ -2149,6 +2161,12 @@ components:
         email:
           type: string
           example: service@gmail.com
+        about:
+          type: string
+          example: something about this service
+        url:
+          type: string
+          example: https://meet.google.com/something
         phoneNumber:
           type: string
           example: +1234556677
@@ -2161,6 +2179,15 @@ components:
             name:
               type: string
               example: John Doe
+            title:
+              type: string
+              example: Software Engineer
+            avatar:
+              type: string
+              example: https://companion-covers.com/something.png
+            createdAt:
+              type: string
+              example: "2024-04-28T20:21:26.854076419Z"
         category:
           type: object
           properties:
