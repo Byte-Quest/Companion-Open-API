@@ -1168,8 +1168,6 @@ paths:
         - Assets
       operationId: Fetch assets
       description: Latest assets of the application
-      security:
-        - bearerAuth: [ ]
       parameters:
         - name: page
           in: query
@@ -1339,6 +1337,171 @@ paths:
                     example: Requested resource not found
 
   /admin/student-ids:
+    post:
+      tags:
+        - Admin
+      description: Create student IDs
+      operationId: CreateStudentIDs
+      security:
+        - bearerAuth: [ ]
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: resource has been created successfully
+                  data:
+                    $ref: "#/components/schemas/Student"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                advisorName:
+                  type: string
+                  example: John Doe's advisor
+                advisorEmail:
+                  type: string
+                  example: advisor.of.john.doe@gmail.com
+                studentId:
+                  type: string
+                  example: some-id
+    get:
+      tags:
+        - Admin
+      operationId: Fetch student Ids
+      description: Latest student Ids of the application
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: page
+          in: query
+          description: The page of the content
+          required: false
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          description: The amount of the assets in one request
+          required: false
+          schema:
+            type: integer
+            example: 20
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Student"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /admin/student-ids/{studentId}:
+    put:
+      tags:
+        - Admin
+      security:
+        - bearerAuth: [ ]
+      description: Update student Id
+      operationId: UpdateStudentId
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Student"
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                advisorName:
+                  type: string
+                  example: John Doe's advisor
+                advisorEmail:
+                  type: string
+                  example: advisor.of.john.doe@gmail.com
+    delete:
+      tags:
+        - Admin
+      operationId: Delete Student Id
+      description: Delete an existing student Id from storage
+      security:
+        - bearerAuth: [ ]
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Resource has been created successfully.
+        "404":
+          description: Asset Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The requested resource not found.
+        "403":
+          description: User does not have access to modify the asset
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Access to the resource is forbidden for this user
+
+  /admin/student-ids/bulk:
     post:
       tags:
         - Admin
@@ -1936,6 +2099,24 @@ components:
           role:
             type: string
             example: Admin,Student
+    Student:
+      type: object
+      properties:
+        advisorName:
+          type: string
+          example: John Doe
+        advisorEmail:
+          type: string
+          example: John.Doe@gmail.com
+        studentId:
+          type: string
+          example: 23123
+        isUsed:
+          type: boolean
+          example: false
+        userName:
+          type: string
+          example: Student John
     Profile:
       type: object
       properties:
