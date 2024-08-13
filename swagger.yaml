@@ -1401,7 +1401,7 @@ paths:
             example: 1
         - name: perPage
           in: query
-          description: The amount of the assets in one request
+          description: The amount of the students in one request
           required: false
           schema:
             type: integer
@@ -1877,6 +1877,53 @@ paths:
         - Admin
       operationId: Upload service cover
       description: Upload service cover
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      fileName:
+                        type: string
+                        example: File name to be used in create post as attachment
+                      url:
+                        type: string
+                        example: https://path-to-image.com
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+
+  /admin/assets/upload:
+    post:
+      tags:
+        - Admin
+      operationId: Upload asset
+      description: Upload asset
       security:
         - bearerAuth: [ ]
       requestBody:
