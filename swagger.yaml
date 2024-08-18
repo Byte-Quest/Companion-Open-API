@@ -46,6 +46,38 @@ paths:
                 properties:
                   message:
                     type: string
+  /auth/access-token/generate:
+    get:
+      tags:
+        - Signup and Login
+      operationId: GenerateAccessToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - refreshToken
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImhzYW1pZC5hYWgwQGdtYWlsLmNvbSIsIklEIjoiMGFmMTI5ODMtODMzZS00ZDQ0LWJkMzAtNDczOWUyZjBjYmYyIiwiZXhwIjoxNzA5NDY3NjM2LCJpYXQiOjE3MDk0NjA0MzYsImlzcyI6Im1vaGFtbWFkIn0.eU6UyDmdVlIWnuOVQyLi8iVci6WQFa1Tjxl7FMEcQ2U
+      responses:
+        "200":
+          description: Registered Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      accessToken:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImhzYW1pZC5hYWgwQGdtYWlsLmNvbSIsIklEIjoiMGFmMTI5ODMtODMzZS00ZDQ0LWJkMzAtNDczOWUyZjBjYmYyIiwiZXhwIjoxNzA5NDY3NjM2LCJpYXQiOjE3MDk0NjA0MzYsImlzcyI6Im1vaGFtbWFkIn0.eU6UyDmdVlIWnuOVQyLi8iVci6WQFa1Tjxl7FMEcQ2U
   /auth/register:
     post:
       tags:
@@ -2134,6 +2166,12 @@ components:
       items:
         type: object
         properties:
+          lockedUntil:
+            type: string
+            example: "2024-04-28T20:21:26.854076419Z"
+          refreshToken:
+            type: string
+            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImhzYW1pZC5hYWgwQGdtYWlsLmNvbSIsIklEIjoiMGFmMTI5ODMtODMzZS00ZDQ0LWJkMzAtNDczOWUyZjBjYmYyIiwiZXhwIjoxNzA5NDY3NjM2LCJpYXQiOjE3MDk0NjA0MzYsImlzcyI6Im1vaGFtbWFkIn0.eU6UyDmdVlIWnuOVQyLi8iVci6WQFa1Tjxl7FMEcQ2U
           accessToken:
             type: string
             example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImhzYW1pZC5hYWgwQGdtYWlsLmNvbSIsIklEIjoiMGFmMTI5ODMtODMzZS00ZDQ0LWJkMzAtNDczOWUyZjBjYmYyIiwiZXhwIjoxNzA5NDY3NjM2LCJpYXQiOjE3MDk0NjA0MzYsImlzcyI6Im1vaGFtbWFkIn0.eU6UyDmdVlIWnuOVQyLi8iVci6WQFa1Tjxl7FMEcQ2U
