@@ -615,14 +615,8 @@ paths:
                 attachments:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      fileName:
-                        type: string
-                        example: The file name from the upload api
-                      fileType:
-                        type: string
-                        example: The file type from the upload api
+                    type: string
+                    example: The file name from the upload api
       security:
         - bearerAuth: [ ]
       responses:
@@ -725,14 +719,8 @@ paths:
                 attachments:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      fileName:
-                        type: string
-                        example: The file name from the upload api
-                      fileType:
-                        type: string
-                        example: The file type from the upload api
+                    type: string
+                    example: The file name from the upload api
                 type:
                   type: string
                   example: InPerson,Online
@@ -913,6 +901,9 @@ paths:
                       fileType:
                         type: string
                         example: image,video
+                      fileExtension:
+                        type: string
+                        example: .jpg
         "422":
           description: Validation Error
           content:
@@ -2330,6 +2321,9 @@ components:
                     fileType:
                       type: string
                       example: The file type from the upload api
+                    fileExtension:
+                      type: string
+                      example: .jpg
               type:
                 type: string
                 example: InPerson,Online
@@ -2588,6 +2582,9 @@ components:
                     fileType:
                       type: string
                       example: The file type from the upload api
+                    fileExtension:
+                      type: string
+                      example: .jpg
               type:
                 type: string
                 example: Post,Coop,Marketplace
