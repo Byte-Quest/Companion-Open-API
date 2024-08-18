@@ -47,7 +47,7 @@ paths:
                   message:
                     type: string
   /auth/access-token/generate:
-    get:
+    post:
       tags:
         - Signup and Login
       operationId: GenerateAccessToken
