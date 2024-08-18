@@ -1578,6 +1578,46 @@ paths:
                       studentId:
                         type: string
                         example: some-id
+  /admin/student-ids/bulk/csv:
+      post:
+        tags:
+          - Admin
+        description: Bulk create student IDs using csv file
+        operationId: BulkCreateStudentIDsUsingCSV
+        security:
+          - bearerAuth: [ ]
+        responses:
+          "200":
+            description: Operation Successful
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: resource has been created successfully
+          "422":
+            description: Validation Error
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Validation error occurred.
+                    errors:
+                      type: object
+        requestBody:
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  file:
+                    type: string
+                    format: binary
 
   /admin/assets:
     post:
