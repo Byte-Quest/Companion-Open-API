@@ -463,14 +463,8 @@ paths:
                 attachments:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      fileName:
-                        type: string
-                        example: The file name you get from the upload api
-                      fileType:
-                        type: string
-                        example: The file type you get from the upload api
+                    type: string
+                    example: The file name you get from the upload api
                 type:
                   type: string
                   example: Social,Marketplace,Coop
@@ -516,14 +510,8 @@ paths:
                 attachments:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      fileType:
-                        type: string
-                        example: The file type you get from the upload api
-                      fileName:
-                        type: string
-                        example: The file name you get from the upload api
+                    type: string
+                    example: The file name you get from the upload api
                 type:
                   type: string
                   example: InPerson,Online
