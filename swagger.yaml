@@ -463,14 +463,8 @@ paths:
                 attachments:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      fileName:
-                        type: string
-                        example: The file name you get from the upload api
-                      fileType:
-                        type: string
-                        example: The file type you get from the upload api
+                    type: string
+                    example: The file name you get from the upload api
                 type:
                   type: string
                   example: Social,Marketplace,Coop
@@ -516,14 +510,8 @@ paths:
                 attachments:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      fileType:
-                        type: string
-                        example: The file type you get from the upload api
-                      fileName:
-                        type: string
-                        example: The file name you get from the upload api
+                    type: string
+                    example: The file name you get from the upload api
                 type:
                   type: string
                   example: InPerson,Online
@@ -1423,6 +1411,27 @@ paths:
           schema:
             type: integer
             example: 20
+        - name: studentId
+          in: query
+          description: The student ID you wanna search in the list
+          required: false
+          schema:
+            type: string
+            example: 2311
+        - name: advisorName
+          in: query
+          description: Search students using their advisor's name (not case-sensitive)
+          required: false
+          schema:
+            type: string
+            example: Carlos
+        - name: advisorEmail
+          in: query
+          description: Search students using their advisor's email (not case-sensitive)
+          required: false
+          schema:
+            type: string
+            example: carlos@gmail.com
       responses:
         "200":
           description: Successful Operation
