@@ -1380,6 +1380,9 @@ paths:
             schema:
               type: object
               properties:
+                name:
+                  type: string
+                  example: John Doe
                 advisorName:
                   type: string
                   example: John Doe's advisor
@@ -1482,6 +1485,9 @@ paths:
             schema:
               type: object
               properties:
+                name:
+                  type: string
+                  example: John Doe
                 advisorName:
                   type: string
                   example: John Doe's advisor
@@ -2221,6 +2227,9 @@ components:
     Student:
       type: object
       properties:
+        name:
+          type: string
+          example: John Doe
         advisorName:
           type: string
           example: John Doe
