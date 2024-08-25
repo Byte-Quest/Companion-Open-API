@@ -1414,27 +1414,13 @@ paths:
           schema:
             type: integer
             example: 20
-        - name: studentId
+        - name: search
           in: query
-          description: The student ID you wanna search in the list
+          description: Search in advisor name, name, advisor email and student id fields
           required: false
           schema:
             type: string
             example: 2311
-        - name: advisorName
-          in: query
-          description: Search students using their advisor's name (not case-sensitive)
-          required: false
-          schema:
-            type: string
-            example: Carlos
-        - name: advisorEmail
-          in: query
-          description: Search students using their advisor's email (not case-sensitive)
-          required: false
-          schema:
-            type: string
-            example: carlos@gmail.com
       responses:
         "200":
           description: Successful Operation
