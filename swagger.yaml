@@ -1381,6 +1381,18 @@ paths:
                 fireBaseId:
                   type: string
                   example: some-firebase-id
+                deviceId:
+                  type: string
+                  example: some-device-id
+                deviceName:
+                  type: string
+                  example: IPhone 13 Pro Max
+                os:
+                  type: string
+                  example: IOS
+                osName:
+                  type: string
+                  example: IOS 15.2
   /devices/topic/subscribe:
     get:
       tags:
@@ -1436,6 +1448,50 @@ paths:
                 userId:
                   type: string
                   example: some-generated-uuid
+  /devices/{device_id}:
+    put:
+      tags:
+        - Devices
+      security:
+        - bearerAuth: [ ]
+      description: Update Device
+      operationId: UpdateDevice
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: resource has been updated successfully
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fireBaseId:
+                  type: string
+                  example: some-firebase-id
+
   /admin/student-ids:
     post:
       tags:
@@ -1908,45 +1964,45 @@ paths:
                         type: string
                         example: some-id
   /admin/student-ids/bulk/csv:
-      post:
-        tags:
-          - Admin
-        description: Bulk create student IDs using csv file
-        operationId: BulkCreateStudentIDsUsingCSV
-        security:
-          - bearerAuth: [ ]
-        responses:
-          "200":
-            description: Operation Successful
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                      example: resource has been created successfully
-          "422":
-            description: Validation Error
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                      example: Validation error occurred.
-                    errors:
-                      type: object
-        requestBody:
+    post:
+      tags:
+        - Admin
+      description: Bulk create student IDs using csv file
+      operationId: BulkCreateStudentIDsUsingCSV
+      security:
+        - bearerAuth: [ ]
+      responses:
+        "200":
+          description: Operation Successful
           content:
-            multipart/form-data:
+            application/json:
               schema:
                 type: object
                 properties:
-                  file:
+                  message:
                     type: string
-                    format: binary
+                    example: resource has been created successfully
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Validation error occurred.
+                  errors:
+                    type: object
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
 
   /admin/assets:
     post:
