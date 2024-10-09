@@ -1375,9 +1375,6 @@ paths:
             schema:
               type: object
               properties:
-                userId:
-                  type: string
-                  example: some-generated-uuid
                 fireBaseId:
                   type: string
                   example: some-firebase-id
@@ -1445,9 +1442,6 @@ paths:
             schema:
               type: object
               properties:
-                userId:
-                  type: string
-                  example: some-generated-uuid
                 deviceId:
                   type: string
                   example: device-id
