@@ -1448,6 +1448,9 @@ paths:
                 userId:
                   type: string
                   example: some-generated-uuid
+                deviceId:
+                  type: string
+                  example: device-id
   /devices/{device_id}:
     put:
       tags:
@@ -1491,7 +1494,19 @@ paths:
                 fireBaseId:
                   type: string
                   example: some-firebase-id
-
+  /devices/{fire_base_id}:
+    get:
+      tags:
+        - Devices
+      description: Fetch device by firebase ID
+      operationId: FetchDeviceByFirebaseID
+      responses:
+        "200":
+          description: Operation Successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Device"
   /admin/student-ids:
     post:
       tags:
@@ -2912,6 +2927,33 @@ components:
         updatedAt:
           type: string
           example: "2024-04-28T20:21:26.854076419Z"
+    Device:
+      type: object
+      properties:
+        id:
+          type: string
+          example: some-generated-uuid
+        deviceName:
+          type: string
+          example: Iphone 12
+        userId:
+          type: string
+          example: some-generated-uuid
+        fireBaseId:
+          type: string
+          example: fire-base-id
+        deviceId:
+          type: string
+          example: device-id
+        os:
+          type: string
+          example: IOS
+        osName:
+          type: string
+          example: IOS13
+        revokedAt:
+          type: string
+          example: null|2024-04-28T20:21:26.854076419Z
     Meta:
       items:
         type: array
