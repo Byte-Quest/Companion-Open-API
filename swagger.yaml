@@ -1645,7 +1645,7 @@ paths:
                   example: Test for notification science
                 type:
                   type: string
-                  example: General,Post
+                  example: link,event
                 meta:
                   type: string
                   example: Anything
@@ -1697,7 +1697,7 @@ paths:
                   example: Test for notification science
                 type:
                   type: string
-                  example: General,Post
+                  example: link,event
                 meta:
                   type: string
                   example: Anything
