@@ -2586,6 +2586,9 @@ components:
           isRead:
             type: boolean
             example: true
+          meta:
+            type: string
+            example: https://meet.google.com
           createdAt:
             type: string
             example: "2024-04-28T20:21:26.854076419Z"
